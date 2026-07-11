@@ -10,39 +10,79 @@
 </p>
 
 ## HimitsuShell
-<img src="assets/demo.gif" width="300">
+<img src="assets/features_obfuscation.png" width="300" style="margin: auto">
 
-[HimitsuShell](https://himitsushell.com) compiles shell scripts into obfuscated binaries to protect source code from disclosure.
+[HimitsuShell](https://himitsushell.com) converts shell scripts into obfuscated binaries using an embedded shell interpreter and anti-debugging protections. (alternative to shc)
 
-## Features
-#### Advanced Obfuscation Techniques
-<img src="assets/features_obfuscation.png" width="250">
+### Features
+<table border="1">
+  <tr>
+    <td width=50%>
+      <img src="assets/features_os.png" style="width: 100%;">
+      <br/>
+      <b>OS-Level Logging & Hooking Protection</b>
+      <br/>
+      Embeds its own shell interpreter, eliminating reliance on the system shell and reducing exposure to OS-level logging and hooking. (e.g., auditd).
+    </td>
+    <td width=50%>
+      <img src="assets/features_encryption.png" style="width: 100%;">
+      <br/>
+      <b>String & Constant Encryption</b>
+      <br/>
+      All strings and constants in the binary are encrypted, making static analysis more difficult (e.g., IDA, Ghidra).
+    </td>
+  </tr>
+  <tr>
+    <td width=50%>
+      <img src="assets/features_debugger.png" style="width: 100%;">
+      <br/>
+      <b>Debugger Detection</b>
+      <br/>
+      Continuously detects debuggers during execution, making dynamic analysis more difficult (e.g., gdb, ptrace, strace).
+    </td>
+    <td width=50%>
+      <img src="assets/features_obfuscation.png" style="width: 100%;">
+      <br/>
+      <b>Advanced Obfuscation Techniques</b>
+      <br/>
+      Features instruction substitution, indirect calls, indirect branches, basic block splitting, and bogus control flow.
+    </td>
+  </tr>
+  <tr>
+    <td width=50%>
+      <img src="assets/features_local.png" style="width: 100%;">
+      <br/>
+      <b>Simple Local Edition Usage</b>
+      <br/>
+      Use the Local Edition with just a few commands.
+    </td>
+    <td width=50%>
+      <img src="assets/features_license.png" style="width: 100%;">
+      <br/>
+      <b>License Verification (Planned)</b>
+      <br/>
+      Restricts shell script execution to users with a valid license key.
+    </td>
+  </tr>
+</table>
 
-Features instruction substitution, indirect calls, indirect branches, basic block splitting, and bogus control flow.
+### Compared to shc
+| | HimitsuShell | shc |
+|-|-|-|
+| OS-Level Logging & Hooking Protection | ✓ | |
+| Dynamic Library Hooking Protection | ✓ | |
+| String & Constant Encryption | ✓ | |
+| Debugger Detection | ✓ | ✓ |
+| Advanced Obfuscation Techniques | ✓ | |
 
-#### OS-Level Logging & Hooking Protection
-<img src="assets/features_os.png" width="250">
+### Usage on the Web
+<img src="assets/demo.gif" width="400" style="margin: auto">
 
-Embeds its own shell interpreter, eliminating reliance on the system shell and reducing exposure to OS-level logging and hooking. (e.g., auditd).
-
-#### String & Constant Encryption
-<img src="assets/features_encryption.png" width="250">
-
-All strings and constants in the binary are encrypted, making static analysis more difficult (e.g., IDA, Ghidra).
-
-#### Debugger Detection
-<img src="assets/features_debugger.png" width="250">
-
-Continuously detects debuggers during execution, making dynamic analysis more difficult (e.g., gdb, ptrace, strace).
-
-#### License Verification
-Restricts shell script execution to users with a valid license key.
-
-## Guide
+## Local Edition Guide
 ### System Requirements
-  - **CPU:** AMD x86_64, 2.5 GHz or higher (6 cores / 12 threads recommended)
-  - **Memory:** 16 GB RAM
-  - **Storage:** 10 GB available SSD/NVMe space
+- **CPU:** AMD x86_64, 2.5 GHz or higher (6 cores / 12 threads recommended)
+- **Memory:** 16 GB RAM
+- **Storage:** 10 GB available SSD/NVMe space
 
 ### Usage
 ```shell
@@ -63,7 +103,6 @@ docker cp himitsu_core:/var/work/safeLauncher .
 ```
 
 ## About This Repository
-
 HimitsuShell is a commercial software product.
 
 This repository does not contain the HimitsuShell source code.
@@ -80,7 +119,6 @@ It serves as the official community hub for:
 - [ssc Security Analysis: Structural Limitations of a Shell Script Compiler](https://medium.com/@y37653/how-to-hack-ssc-shell-script-protection-tool-90a34b13c802)
 
 ## Discussions
-
 We welcome questions, feedback, bug reports, feature requests, and use cases related to HimitsuShell. Feel free to start a discussion and share your thoughts.
 
 ## Contact
