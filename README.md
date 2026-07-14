@@ -114,6 +114,7 @@ It serves as the official community hub for:
 - Feature requests
 
 ## Research & Security Analysis
+- [Shell Script Obfuscator Comparison: Bashfuscator vs. HimitsuShell](https://medium.com/@y37653/shell-script-obfuscator-comparison-bashfuscator-vs-himitsushell-6075fb19f657)
 - [Shell Script-to-Binary Tools: shc vs. HimitsuShell](https://medium.com/@y37653/shell-script-to-binary-tools-shc-vs-himitsushell-31baed264c6f)
 - [shc Security Analysis: Structural Limitations of a Shell Script Compiler](https://medium.com/@y37653/how-to-hack-shc-shell-script-protection-tool-bd958126ea66)
 - [ssc Security Analysis: Structural Limitations of a Shell Script Compiler](https://medium.com/@y37653/how-to-hack-ssc-shell-script-protection-tool-90a34b13c802)
