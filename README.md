@@ -13,6 +13,8 @@
   </a>
 </p>
 
+**README:** [English](README.md) | [中文](README.zh-CN.md) | [日本語](README.ja.md)
+
 ## HimitsuShell
 Converts shell scripts into obfuscated binaries using an embedded shell interpreter, advanced obfuscation, and anti-debugging techniques. (alternative to shc)
 
