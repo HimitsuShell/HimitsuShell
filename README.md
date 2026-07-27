@@ -16,7 +16,8 @@
 **README:** [English](README.md) | [中文](README.zh-CN.md) | [日本語](README.ja.md)
 
 # HimitsuShell
-Converts shell scripts into obfuscated binaries using an embedded shell interpreter, advanced obfuscation, and anti-debugging techniques. (alternative to shc)
+Protects shell scripts from leaks, tampering, and unauthorized use.  
+Converts shell scripts into binaries with an embedded interpreter, obfuscation, and anti-debug protections (shc alternative).
 
 <img src="assets/features_obfuscation.png" width="220"><br>
 <sub><b>Block Flow Graph (Ghidra)</b></sub>
@@ -92,10 +93,10 @@ Features instruction substitution, indirect calls, indirect branches, basic bloc
 Restricts shell script execution to users with a valid license key.
 
 ## Research & Security Analysis
-#### Articles
-- [Shell Script-to-Binary Tools: shc vs. HimitsuShell](https://medium.com/@y37653/shell-script-to-binary-tools-shc-vs-himitsushell-31baed264c6f)
-- [shc Security Analysis: Structural Limitations of a Shell Script Compiler](https://medium.com/@y37653/how-to-hack-shc-shell-script-protection-tool-bd958126ea66)
-- [ssc Security Analysis: Structural Limitations of a Shell Script Compiler](https://medium.com/@y37653/how-to-hack-ssc-shell-script-protection-tool-90a34b13c802)
+#### Why not shc, ssc, etc.?
+Known auto-decompilation tools:
+- UnSHc: https://github.com/yanncam/UnSHc
+- unshell: https://github.com/Rem01Gaming/unshell
 
 #### Compared to shc
 | | HimitsuShell | shc |
@@ -105,6 +106,11 @@ Restricts shell script execution to users with a valid license key.
 | String & Constant Encryption | ✓ | |
 | Debugger Detection | ✓ | ✓ |
 | Advanced Obfuscation Techniques | ✓ | |
+
+#### Articles
+- [Shell Script-to-Binary Tools: shc vs. HimitsuShell](https://medium.com/@y37653/shell-script-to-binary-tools-shc-vs-himitsushell-31baed264c6f)
+- [shc Security Analysis: Structural Limitations of a Shell Script Compiler](https://medium.com/@y37653/how-to-hack-shc-shell-script-protection-tool-bd958126ea66)
+- [ssc Security Analysis: Structural Limitations of a Shell Script Compiler](https://medium.com/@y37653/how-to-hack-ssc-shell-script-protection-tool-90a34b13c802)
 
 ## Discussions
 Questions, bug reports, feature requests, and general discussions are welcome.
