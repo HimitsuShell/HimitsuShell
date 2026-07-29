@@ -2,15 +2,9 @@
   <a href="https://himitsushell.com/" target="blank"><img src="https://avatars.githubusercontent.com/u/264618628?s=200&v=4" width="100" alt="HimitsuShell Logo" /></a>
 </p>
 <p align="center">
-  <a href="https://github.com/HimitsuShell/Himitsu/releases">
-    <img src="https://img.shields.io/github/v/release/HimitsuShell/Himitsu?color=2da44e" alt="Latest Release" />
-  </a>
-  <a href="https://github.com/HimitsuShell/Himitsu/blob/main/LICENSE">
-    <img src="https://img.shields.io/badge/license-PolyForm%20NC-blue" alt="PolyForm Noncommercial 1.0.0 License" />
-  </a>
-  <a href="https://github.com/HimitsuShell/Himitsu/releases">
-    <img src="https://img.shields.io/github/downloads/HimitsuShell/Himitsu/total.svg" alt="GitHub Total Downloads" />
-  </a>
+  <a href="https://github.com/HimitsuShell/Himitsu/releases"><img src="https://img.shields.io/github/v/release/HimitsuShell/Himitsu?color=2da44e" alt="Latest Release" /></a>
+  <a href="https://github.com/HimitsuShell/Himitsu/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-PolyForm%20NC-blue" alt="PolyForm Noncommercial 1.0.0 License" /></a>
+  <a href="https://github.com/HimitsuShell/Himitsu/releases"><img src="https://img.shields.io/github/downloads/HimitsuShell/Himitsu/total.svg" alt="GitHub Total Downloads" /></a>
 </p>
 
 **README:** [English](README.md) | [中文](README.zh-CN.md) | [日本語](README.ja.md)
