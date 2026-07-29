@@ -16,53 +16,50 @@
 **README:** [English](README.md) | [中文](README.zh-CN.md) | [日本語](README.ja.md)
 
 # HimitsuShell
-Protects shell scripts from leaks, tampering, and unauthorized use.  
-Converts shell scripts into binaries with an embedded interpreter, obfuscation, and anti-debug protections (shc alternative).
+Protects shell scripts from leaks, tampering, and unauthorized use.
+  
+Converts shell scripts into static binaries with an embedded interpreter, obfuscation, and anti-debug protections (shc alternative).
 
 <img src="assets/features_obfuscation.png" width="220"><br>
 <sub><b>Block Flow Graph (Ghidra)</b></sub>
 
 ## Usage
 ```shell
-# 1. Download Docker image
+# 1. download and load docker image
 curl -LO https://github.com/HimitsuShell/Himitsu/releases/download/v1.2.0/himitsu_core_v1.2.0.tar.gz
-
-# 2. Load Docker image
 docker load -i himitsu_core_v1.2.0.tar.gz
 
-# 3. Start container
+# 2. start container
 docker run --name himitsu_core -d -it himitsu_core:v1.2.0
 
-# 4. Upload your shell script (must be named launcher.sh)
+# 3. upload your shell script (must be named launcher.sh)
 docker cp launcher.sh himitsu_core:/var/work/
 
-# 5. Build binary (10–20 seconds)
+# 4. build and download binary (10–20 seconds)
 docker exec himitsu_core /var/work/compile.sh
-
-# 6. Download generated binary
 docker cp himitsu_core:/var/work/safeLauncher .
 ```
 
 ### Obfuscation Options
 ```shell
-# Obfuscation Options
-- bcf         # Bogus Control Flow (Warning: Significantly increases build time and binary size.)
-  - bcf_prob  # Probability (1–100, default: 70)
-  - bcf_loop  # Number of Iterations (default: 2)
-- sub         # Instruction Substitution (add/and/sub/or/xor)
-  - sub_loop  # Number of Iterations (default: 1)
-- sobf        # String Encryption
-- split       # Basic Block Splitting
-  - split_num # Number of Splits (default: 3)
-- ibr         # Indirect Branches
-- icall       # Indirect Calls
-- igv         # Indirect Global Variable
+# obfuscation options
+- bcf         # bogus control flow (warning: significantly increases build time and binary size.)
+  - bcf_prob  # probability (1–100, default: 70)
+  - bcf_loop  # number of iterations (default: 2)
+- sub         # instruction substitution (add/and/sub/or/xor)
+  - sub_loop  # number of iterations (default: 1)
+- sobf        # string encryption
+- split       # basic block splitting
+  - split_num # number of splits (default: 3)
+- ibr         # indirect branches
+- icall       # indirect calls
+- igv         # indirect global variable
 
-# Enabled by Default
+# default options
 sobf, icall, ibr, igv, sub
 
-# How to Customize
-Modify /var/work/compile.sh inside the `himitsu_core` container.
+# how to customize
+modify /var/work/compile.sh inside the `himitsu_core` container.
 ```
 
 ### System Requirements
@@ -78,23 +75,23 @@ Modify /var/work/compile.sh inside the `himitsu_core` container.
 
 ## Features
 - **OS-Level Logging & Hooking Protection**  
-  Embeds its own shell interpreter, eliminating reliance on the system shell and reducing exposure to OS-level logging and hooking. (e.g., `auditd`, `bpftrace`).
+  Executes shell scripts using its own embedded shell interpreter instead of the system shell (e.g., `/bin/bash`). Shell scripts are not exposed even by OS-level logging and hooking (`auditd`, `bpftrace`).
 
 - **String & Constant Encryption**  
-All strings and constants in the binary are encrypted, making static analysis more difficult (e.g., `IDA`, `Ghidra`).
+  All strings and constants in the binary are encrypted, making static analysis more difficult (e.g., `IDA`, `Ghidra`).
 
 - **Debugger Detection**  
-Continuously detects debuggers during execution, making dynamic analysis more difficult (e.g., `gdb`, `ptrace`, `strace`).
+  Continuously detects debuggers during execution, making dynamic analysis more difficult (e.g., `gdb`, `ptrace`, `strace`).
 
 - **Advanced Obfuscation Techniques**  
-Features instruction substitution, indirect calls, indirect branches, basic block splitting, and bogus control flow.
+  Features instruction substitution, indirect calls, indirect branches, basic block splitting, and bogus control flow.
 
 - **License Verification (Planned)**  
-Restricts shell script execution to users with a valid license key.
+  Restricts shell script execution to users with a valid license key.
 
 ## Research & Security Analysis
 #### Why not shc, ssc, etc.?
-Known auto-decompilation tools:
+Known auto decompilation tools:
 - UnSHc: https://github.com/yanncam/UnSHc
 - unshell: https://github.com/Rem01Gaming/unshell
 
@@ -112,9 +109,23 @@ Known auto-decompilation tools:
 - [shc Security Analysis: Structural Limitations of a Shell Script Compiler](https://medium.com/@y37653/how-to-hack-shc-shell-script-protection-tool-bd958126ea66)
 - [ssc Security Analysis: Structural Limitations of a Shell Script Compiler](https://medium.com/@y37653/how-to-hack-ssc-shell-script-protection-tool-90a34b13c802)
 
-## Discussions
-Questions, bug reports, feature requests, and general discussions are welcome.
+## FAQ
+- **Which Linux shells are supported?**  
+  Supports POSIX/LSB-compliant shells (e.g., /bin/sh).
 
+- **Do Bash or Zsh scripts work?**  
+  They work, but errors can occur. We recommend testing before use.
+
+- **Which shell commands are supported?**  
+  The commands listed below are built into the binary. Other commands also work, but they rely on the system shell and may be exposed to hooking or logging.
+
+  <small>basename bash blkdiscard blkid blockdev bunzip2 bzcat cal cat chattr chgrp chmod chown chroot chrt chvt cksum clear cmp comm count cp cpio crc32 cut date dd deallocvt devmem df dirname dmesg dnsdomainname dos2unix du echo egrep eject env expand factor fallocate false fgrep file find flock fmt fold free freeramdisk fsfreeze fstype fsync ftpget ftpput getconf getopt gpiodetect gpiofind gpioget gpioinfo gpioset grep groups gunzip halt hd head help hexedit host hostname httpd hwclock i2cdetect i2cdump i2cget i2cset i2ctransfer iconv id ifconfig inotifyd insmod install ionice iorenice iotop kill killall killall5 link linux32 ln logger login logname losetup ls lsattr lsmod lspci lsusb makedevs mcookie md5sum memeater microcom mix mkdir mkfifo mknod mkpasswd mkswap mktemp modinfo mount mountpoint mv nbd-client nbd-server nc netcat netstat nice nl nohup nologin nproc nsenter od oneit openvt partprobe paste patch pgrep pidof ping ping6 pivot_root pkill pmap poweroff printenv printf prlimit ps pwd pwdx pwgen readahead readelf readlink realpath reboot renice reset rev rfkill rm rmdir rmmod rtcwake sed seq setfattr setsid sh sha1sum sha224sum sha256sum sha384sum sha3sum sha512sum shred shuf sleep sntp sort split stat strings su swapoff swapon switch_root sync sysctl tac tail tar taskset tee test time timeout top touch true truncate ts tsort tty tunctl uclampset ulimit umount uname unicode uniq unix2dos unlink unshare uptime usleep uudecode uuencode uuidgen vconfig vmstat w watch watchdog wc wget which who whoami xargs xxd yes zcat</small>
+
+- **Can I use only the obfuscation engine?**  
+  Yes. See [HimitsuObfuscator](https://github.com/HimitsuShell/HimitsuObfuscator)
+
+## Discussions
+Questions, bug reports, feature requests, and general discussions are welcome.  
 You can also contact us at hjyun@mushsw.com.
 
 ## License
