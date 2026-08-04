@@ -99,6 +99,7 @@ Known auto decompilation tools:
 | Advanced Obfuscation Techniques | ✓ | |
 
 #### Articles
+- [How to Protect Source Code Inside Docker Images (DRM, Obfuscation)](https://medium.com/@y37653/how-to-protect-source-code-inside-docker-images-drm-obfuscation-57a2b835ee82)
 - [Shell Script-to-Binary Tools: shc vs. HimitsuShell](https://medium.com/@y37653/shell-script-to-binary-tools-shc-vs-himitsushell-31baed264c6f)
 - [shc Security Analysis: Structural Limitations of a Shell Script Compiler](https://medium.com/@y37653/how-to-hack-shc-shell-script-protection-tool-bd958126ea66)
 - [ssc Security Analysis: Structural Limitations of a Shell Script Compiler](https://medium.com/@y37653/how-to-hack-ssc-shell-script-protection-tool-90a34b13c802)
