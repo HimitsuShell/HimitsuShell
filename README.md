@@ -34,7 +34,7 @@ docker exec himitsu_core /var/work/compile.sh
 docker cp himitsu_core:/var/work/safeLauncher .
 ```
 
-#### Obfuscation Options
+#### Obfuscation Options (LLVM-based)
 ```shell
 # obfuscation options
 - bcf         # bogus control flow (warning: significantly increases build time and binary size.)
