@@ -10,11 +10,11 @@
 **README:** [English](README.md) | [中文](README.zh-CN.md) | [日本語](README.ja.md)
 
 # HimitsuShell
-Protects shell scripts from leaks, tampering, and unauthorized use.
+Shell scripts invisible even to kernel tracing.
   
-Converts shell scripts into static binaries with an embedded interpreter, obfuscation, and anti-debug protections (shc alternative).
+Converts shell scripts into single static binaries with an embedded interpreter, llvm-based obfuscation, and anti-debug protections (shc alternative).
 
-<img src="assets/features_obfuscation.png" width="220"><br>
+<img src="assets/features_obfuscation.png" width="200"><br>
 <sub><b>Block Flow Graph (Ghidra)</b></sub>
 
 ## Usage
@@ -99,10 +99,10 @@ Known auto decompilation tools:
 | Advanced Obfuscation Techniques | ✓ | |
 
 #### Articles
-- [How to Protect Source Code Inside Docker Images (DRM, Obfuscation)](https://medium.com/@y37653/how-to-protect-source-code-inside-docker-images-drm-obfuscation-57a2b835ee82)
-- [Shell Script-to-Binary Tools: shc vs. HimitsuShell](https://medium.com/@y37653/shell-script-to-binary-tools-shc-vs-himitsushell-31baed264c6f)
-- [shc Security Analysis: Structural Limitations of a Shell Script Compiler](https://medium.com/@y37653/how-to-hack-shc-shell-script-protection-tool-bd958126ea66)
-- [ssc Security Analysis: Structural Limitations of a Shell Script Compiler](https://medium.com/@y37653/how-to-hack-ssc-shell-script-protection-tool-90a34b13c802)
+- [Comparing Shell Script Protection Tools: shc vs HimitsuShell (Binary Compilation, Encryption, and Obfuscation)](https://himitsushell.github.io/en/shc-vs-himitsushell/)
+- [Shell Script Security: Structural Limitations and Vulnerabilities of shc (Encryption, Compiler, Obfuscation)](https://himitsushell.github.io/en/shc-security-analysis/)
+- [Linux Shell Script Security: Structural Limitations and Vulnerabilities in ssc (Source Code Protection, Obfuscation, Reverse Engineering)](https://himitsushell.github.io/en/ssc-security-analysis/)
+- [How to Protect Source Code in Docker Images and Containers (Python, C/C++, Shell Scripts, LLVM Obfuscation, DRM)](https://himitsushell.github.io/en/how-to-protect-docker/)
 
 ## FAQ
 - **Which Linux shells are supported?**  
