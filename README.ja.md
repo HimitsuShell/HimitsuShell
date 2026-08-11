@@ -7,109 +7,123 @@
   <a href="https://github.com/HimitsuShell/Himitsu/releases"><img src="https://img.shields.io/github/downloads/HimitsuShell/Himitsu/total.svg" alt="GitHub Total Downloads" /></a>
 </p>
 
-> このREADMEはAIによって翻訳されているため、誤りが含まれている可能性があります。修正すべき点があれば、IssueまたはPull Requestをお送りください。
+> 翻訳版です。問題があればIssueでお知らせください。
 
 **README:** [English](README.md) | [中文](README.zh-CN.md) | [日本語](README.ja.md)
 
-## HimitsuShell
-組み込みシェルインタプリタ、高度な難読化、アンチデバッギング技術を用いて、シェルスクリプトを難読化されたバイナリへと変換します。(shcの代替)
+# HimitsuShell
+カーネルトレースからも見えないシェルスクリプト。
 
-<img src="assets/features_obfuscation.png" width="220"><br>
-<sub><b>ブロックフローグラフ (Ghidra)</b></sub>
+シェルスクリプトを、組み込みインタプリタ・LLVMベースの難読化・アンチデバッグ保護を備えた単一の静的バイナリに変換します（shcの代替）。
+
+<img src="assets/features_obfuscation.png" width="200"><br>
+<sub><b>ブロックフローグラフ（Ghidra）</b></sub>
 
 ## 使い方
 ```shell
-# 1. Download Docker image
+# 1. download and load docker image
 curl -LO https://github.com/HimitsuShell/Himitsu/releases/download/v1.2.0/himitsu_core_v1.2.0.tar.gz
-
-# 2. Load Docker image
 docker load -i himitsu_core_v1.2.0.tar.gz
 
-# 3. Start container
+# 2. start container
 docker run --name himitsu_core -d -it himitsu_core:v1.2.0
 
-# 4. Upload your shell script (must be named launcher.sh)
+# 3. upload your shell script (must be named launcher.sh)
 docker cp launcher.sh himitsu_core:/var/work/
 
-# 5. Build binary (10–20 seconds)
+# 4. build and download binary (10–20 seconds)
 docker exec himitsu_core /var/work/compile.sh
-
-# 6. Download generated binary
 docker cp himitsu_core:/var/work/safeLauncher .
 ```
 
-### 難読化オプション
+#### 難読化オプション（LLVMベース）
 ```shell
-# Obfuscation Options
-- bcf         # Bogus Control Flow (Warning: Significantly increases build time and binary size.)
-  - bcf_prob  # Probability (1–100, default: 70)
-  - bcf_loop  # Number of Iterations (default: 2)
-- sub         # Instruction Substitution (add/and/sub/or/xor)
-  - sub_loop  # Number of Iterations (default: 1)
-- sobf        # String Encryption
-- split       # Basic Block Splitting
-  - split_num # Number of Splits (default: 3)
-- ibr         # Indirect Branches
-- icall       # Indirect Calls
-- igv         # Indirect Global Variable
+# obfuscation options
+- bcf         # bogus control flow (warning: significantly increases build time and binary size.)
+  - bcf_prob  # probability (1–100, default: 70)
+  - bcf_loop  # number of iterations (default: 2)
+- sub         # instruction substitution (add/and/sub/or/xor)
+  - sub_loop  # number of iterations (default: 1)
+- sobf        # string encryption
+- split       # basic block splitting
+  - split_num # number of splits (default: 3)
+- ibr         # indirect branches
+- icall       # indirect calls
+- igv         # indirect global variable
 
-# Enabled by Default
+# default options
 sobf, icall, ibr, igv, sub
 
-# How to Customize
-Modify /var/work/compile.sh inside the `himitsu_core` container.
+# how to customize
+modify /var/work/compile.sh inside the `himitsu_core` container.
 ```
 
-### システム要件
-- **CPU:** x86_64 (Intel/AMD)、2.5 GHz以上 *(6コア/12スレッド推奨)*
-- **メモリ:** 16 GB RAM
-- **ストレージ:** 10 GBの空き容量 (SSD/NVMe)
+#### システム要件
+- **CPU:** x86_64（Intel/AMD）、2.5GHz以上 *(6コア/12スレッド推奨)*
+- **メモリ:** 16GB RAM
+- **ストレージ:** 10GBの空き容量（SSD/NVMe）
 
-### 対応プラットフォーム
-- **Linux x86_64 (static musl)**
-- Linux ARM64 (近日対応予定)
-- Linux ARMv7 (予定)
-- Linux RISC-V 64 (予定)
+#### 対応プラットフォーム
+- **Linux x86_64（static musl）**
+- Linux ARM64（近日対応予定）
+- Linux ARMv7（対応予定）
+- Linux RISC-V 64（対応予定）
 
 ## 特徴
-- **OSレベルのロギング・フッキング防止**
-  独自のシェルインタプリタを組み込んでいるため、システムシェルへの依存がなく、OSレベルのロギングやフッキング(例:`auditd`、`bpftrace`)にさらされるリスクを軽減します。
+- **OSレベルのロギング・フッキング対策**  
+  システムシェル（例：`/bin/bash`）の代わりに、独自の組み込みシェルインタプリタを使用してシェルスクリプトを実行します。OSレベルのロギングやフッキング（`auditd`、`bpftrace`）でもシェルスクリプトの中身は露出しません。
 
-- **文字列・定数の暗号化**
-  バイナリ内のすべての文字列および定数を暗号化し、静的解析(例:`IDA`、`Ghidra`)をより困難にします。
+- **文字列・定数の暗号化**  
+  バイナリ内のすべての文字列と定数が暗号化され、静的解析（`IDA`、`Ghidra`など）がより困難になります。
 
-- **デバッガ検出**
-  実行中に常にデバッガを検出し、動的解析(例:`gdb`、`ptrace`、`strace`)をより困難にします。
+- **デバッガ検知**  
+  実行中に継続的にデバッガを検知し、動的解析（`gdb`、`ptrace`、`strace`など）をより困難にします。
 
-- **高度な難読化技術**
-  命令置換、間接呼び出し、間接分岐、基本ブロック分割、疑似制御フローなどの機能を備えています。
+- **高度な難読化技術**  
+  命令置換、間接呼び出し、間接分岐、基本ブロック分割、ボーガスコントロールフローなどの機能を備えています。
 
-- **ライセンス認証(予定)**
+- **ライセンス認証（予定）**  
   有効なライセンスキーを持つユーザーのみにシェルスクリプトの実行を制限します。
 
 ## 研究・セキュリティ分析
-#### 記事
-- [Shell Script-to-Binary Tools: shc vs. HimitsuShell](https://medium.com/@y37653/shell-script-to-binary-tools-shc-vs-himitsushell-31baed264c6f)
-- [shc Security Analysis: Structural Limitations of a Shell Script Compiler](https://medium.com/@y37653/how-to-hack-shc-shell-script-protection-tool-bd958126ea66)
-- [ssc Security Analysis: Structural Limitations of a Shell Script Compiler](https://medium.com/@y37653/how-to-hack-ssc-shell-script-protection-tool-90a34b13c802)
+#### なぜshcやsscではないのか？
+既知の自動デコンパイルツール：
+- UnSHc: https://github.com/yanncam/UnSHc
+- unshell: https://github.com/Rem01Gaming/unshell
 
 #### shcとの比較
 | | HimitsuShell | shc |
 |-|-|-|
-| OSレベルのロギング・フッキング防止 | ✓ | |
-| 動的ライブラリフッキング防止 | ✓ | |
+| OSレベルのロギング・フッキング対策 | ✓ | |
+| 動的ライブラリフッキング対策 | ✓ | |
 | 文字列・定数の暗号化 | ✓ | |
-| デバッガ検出 | ✓ | ✓ |
+| デバッガ検知 | ✓ | ✓ |
 | 高度な難読化技術 | ✓ | |
 
+#### 記事
+- [シェルスクリプト保護ツール比較：shc vs HimitsuShell（バイナリコンパイル・暗号化・難読化）](https://himitsushell.github.io/en/shc-vs-himitsushell/)
+- [シェルスクリプトのセキュリティ：shcの構造的な限界と脆弱性（暗号化・コンパイラ・難読化）](https://himitsushell.github.io/en/shc-security-analysis/)
+- [Linuxシェルスクリプトのセキュリティ：sscの構造的な限界と脆弱性（ソースコード保護・難読化・リバースエンジニアリング）](https://himitsushell.github.io/en/ssc-security-analysis/)
+- [Dockerイメージおよびコンテナでソースコードを保護する方法（Python、C/C++、シェルスクリプト、LLVM難読化、DRM）](https://himitsushell.github.io/en/how-to-protect-docker/)
+
+## よくある質問
+- **どのLinuxシェルに対応していますか？**  
+  POSIX/LSB準拠のシェル（例：/bin/sh）に対応しています。
+
+- **BashやZshのスクリプトは動作しますか？**  
+  動作はしますが、エラーが発生することがあります。使用前にテストすることをおすすめします。
+
+- **どのシェルコマンドに対応していますか？**  
+  以下に記載されたコマンドはバイナリに組み込まれています。それ以外のコマンドも動作はしますが、システムシェルに依存するため、フッキングやロギングにさらされる可能性があります。
+
+  <sup>basename bash blkdiscard blkid blockdev bunzip2 bzcat cal cat chattr chgrp chmod chown chroot chrt chvt cksum clear cmp comm count cp cpio crc32 cut date dd deallocvt devmem df dirname dmesg dnsdomainname dos2unix du echo egrep eject env expand factor fallocate false fgrep file find flock fmt fold free freeramdisk fsfreeze fstype fsync ftpget ftpput getconf getopt gpiodetect gpiofind gpioget gpioinfo gpioset grep groups gunzip halt hd head help hexedit host hostname httpd hwclock i2cdetect i2cdump i2cget i2cset i2ctransfer iconv id ifconfig inotifyd insmod install ionice iorenice iotop kill killall killall5 link linux32 ln logger login logname losetup ls lsattr lsmod lspci lsusb makedevs mcookie md5sum memeater microcom mix mkdir mkfifo mknod mkpasswd mkswap mktemp modinfo mount mountpoint mv nbd-client nbd-server nc netcat netstat nice nl nohup nologin nproc nsenter od oneit openvt partprobe paste patch pgrep pidof ping ping6 pivot_root pkill pmap poweroff printenv printf prlimit ps pwd pwdx pwgen readahead readelf readlink realpath reboot renice reset rev rfkill rm rmdir rmmod rtcwake sed seq setfattr setsid sh sha1sum sha224sum sha256sum sha384sum sha3sum sha512sum shred shuf sleep sntp sort split stat strings su swapoff swapon switch_root sync sysctl tac tail tar taskset tee test time timeout top touch true truncate ts tsort tty tunctl uclampset ulimit umount uname unicode uniq unix2dos unlink unshare uptime usleep uudecode uuencode uuidgen vconfig vmstat w watch watchdog wc wget which who whoami xargs xxd yes zcat</sup>
+
+- **難読化エンジンだけを使うことはできますか？**  
+  はい。[HimitsuObfuscator](https://github.com/HimitsuShell/HimitsuObfuscator)をご覧ください。
+
 ## ディスカッション
-質問、バグ報告、機能リクエスト、その他一般的な議論を歓迎します。
+質問、バグ報告、機能リクエスト、その他一般的な議論を歓迎します。  
+hjyun@mushsw.com までご連絡いただくことも可能です。
 
-また、hjyun@mushsw.com までご連絡いただくことも可能です。
-
-## ライセンス
-HimitsuShellは、非商用利用向けのコミュニティエディションを含むデュアルライセンスモデルを採用しています: [Polyform Noncommercial 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0)。
-
-このライセンスの下では、HimitsuShellは個人利用・非商用利用であれば無料で使用できますが、商用ビジネスにおいて利用する場合は商用版(Commercial Edition)が必要になります。
-
-商用版(Commercial Edition)は [himitsushell.com](https://himitsushell.com) にてご購入いただけます。ライセンスの詳細については、[利用規約](https://himitsushell.com/pdf/terms_of_service.pdf)をご覧ください。
+## License
+See [README.md](README.md#license) and [LICENSE](LICENSE) for details.
