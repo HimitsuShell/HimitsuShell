@@ -9,7 +9,7 @@
 
 > 翻訳版です。問題があればIssueでお知らせください。
 
-**README:** [English](README.md) | [中文](README.zh-CN.md) | [日本語](README.ja.md)
+**README:** [English](README.md) | [中文](README.zh-CN.md) | [日本語](README.ja.md) | [한국어](README.ko.md)
 
 # HimitsuShell
 カーネルトレースからも見えないシェルスクリプト。

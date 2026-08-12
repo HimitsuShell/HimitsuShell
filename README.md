@@ -7,7 +7,7 @@
   <a href="https://github.com/HimitsuShell/Himitsu/releases"><img src="https://img.shields.io/github/downloads/HimitsuShell/Himitsu/total.svg" alt="GitHub Total Downloads" /></a>
 </p>
 
-**README:** [English](README.md) | [中文](README.zh-CN.md) | [日本語](README.ja.md)
+**README:** [English](README.md) | [中文](README.zh-CN.md) | [日本語](README.ja.md) | [한국어](README.ko.md)
 
 # HimitsuShell
 Shell scripts invisible even to kernel tracing.
