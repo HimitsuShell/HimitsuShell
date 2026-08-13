@@ -101,10 +101,10 @@ modify /var/work/compile.sh inside the `himitsu_core` container.
 | 高度な難読化技術 | ✓ | |
 
 #### 記事
-- [シェルスクリプト保護ツール比較：shc vs HimitsuShell（バイナリコンパイル・暗号化・難読化）](https://himitsushell.github.io/en/shc-vs-himitsushell/)
-- [シェルスクリプトのセキュリティ：shcの構造的な限界と脆弱性（暗号化・コンパイラ・難読化）](https://himitsushell.github.io/en/shc-security-analysis/)
-- [Linuxシェルスクリプトのセキュリティ：sscの構造的な限界と脆弱性（ソースコード保護・難読化・リバースエンジニアリング）](https://himitsushell.github.io/en/ssc-security-analysis/)
-- [Dockerイメージおよびコンテナでソースコードを保護する方法（Python、C/C++、シェルスクリプト、LLVM難読化、DRM）](https://himitsushell.github.io/en/how-to-protect-docker/)
+- [シェルスクリプト保護ツール比較:shc vs HimitsuShell(バイナリ化、暗号化、難読化)](https://himitsushell.github.io/ja/shc-vs-himitsushell/)
+- [シェルスクリプトのセキュリティ: shcの構造的限界と脆弱性(暗号化、コンパイラ、難読化)](https://himitsushell.github.io/ja/shc-security-analysis/)
+- [Linuxシェルスクリプトのセキュリティ: sscの構造的限界と脆弱性(ソースコード保護、難読化、リバースエンジニアリング)](https://himitsushell.github.io/ja/ssc-security-analysis/)
+- [Docker イメージ・コンテナのソースコード保護方法(Python、C/C++、シェルスクリプト、LLVM難読化、DRM)](https://himitsushell.github.io/ja/how-to-protect-docker/)
 
 ## よくある質問
 - **どのLinuxシェルに対応していますか？**  
