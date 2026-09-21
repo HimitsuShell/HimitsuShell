@@ -20,11 +20,11 @@ Converts shell scripts into single static binaries with an embedded interpreter,
 ## Usage
 ```shell
 # 1. download and load docker image
-curl -LO https://github.com/HimitsuShell/Himitsu/releases/download/v1.2.0/himitsu_core_v1.2.0.tar.gz
-docker load -i himitsu_core_v1.2.0.tar.gz
+curl -LO https://github.com/HimitsuShell/Himitsu/releases/download/v2.1.0/himitsu_core_x86_64_linux_musl.tar.gz
+docker load -i himitsu_core_x86_64_linux_musl.tar.gz
 
 # 2. start container
-docker run --name himitsu_core -d -it himitsu_core:v1.2.0
+docker run --name himitsu_core -d -it himitsu_core
 
 # 3. upload your shell script (must be named launcher.sh)
 docker cp launcher.sh himitsu_core:/var/work/
@@ -38,34 +38,32 @@ docker cp himitsu_core:/var/work/safeLauncher .
 ```shell
 # obfuscation options
 - bcf         # bogus control flow (warning: significantly increases build time and binary size.)
-  - bcf_prob  # probability (1–100, default: 70)
-  - bcf_loop  # number of iterations (default: 2)
+  - bcf_prob  # probability (1–100, default: 30)
+  - bcf_loop  # number of iterations (default: 1)
 - sub         # instruction substitution (add/and/sub/or/xor)
   - sub_loop  # number of iterations (default: 1)
 - sobf        # string encryption
 - split       # basic block splitting
-  - split_num # number of splits (default: 3)
-- ibr         # indirect branches
-- icall       # indirect calls
-- igv         # indirect global variable
+  - split_num # number of splits (default: 2)
 
-# default options
-sobf, icall, ibr, igv, sub
-
-# how to customize
-modify /var/work/compile.sh inside the `himitsu_core` container.
+# default: sub, sobf (edit /var/work/compile.sh in himitsu_core container)
 ```
+
+#### Set Expiration Date
+```shell
+# default: 2099-01-01 (edit /var/work/compile.sh in himitsu_core container)
+```
+
+#### Supported Platforms
+- **Linux x86_64 (static musl)**
+- **Linux aarch64 (static musl)**
+- Linux ARMv7 (Planned)
+- Linux RISC-V 64 (Planned)
 
 #### System Requirements
 - **CPU:** x86_64 (Intel/AMD), 2.5 GHz or higher *(6 cores / 12 threads recommended)*
 - **Memory:** 16 GB RAM
 - **Storage:** 10 GB available space (SSD/NVMe)
-
-#### Supported Platforms
-- **Linux x86_64 (static musl)**
-- Linux ARM64 (Coming Soon)
-- Linux ARMv7 (Planned)
-- Linux RISC-V 64 (Planned)
 
 ## Features
 - **OS-Level Logging & Hooking Protection**  
@@ -78,10 +76,10 @@ modify /var/work/compile.sh inside the `himitsu_core` container.
   Continuously detects debuggers during execution, making dynamic analysis more difficult (e.g., `gdb`, `ptrace`, `strace`).
 
 - **Advanced Obfuscation Techniques**  
-  Features instruction substitution, indirect calls, indirect branches, basic block splitting, and bogus control flow.
+  Features instruction substitution, control flow flattening, basic block splitting, function annotations, and bogus control flow.
 
-- **License Verification (Planned)**  
-  Restricts shell script execution to users with a valid license key.
+- **Expiration Date Verification**  
+  Automatically blocks shell script execution after the expiration date.
 
 ## Research & Security Analysis
 #### Why not shc, ssc, etc.?
@@ -122,6 +120,9 @@ Known auto decompilation tools:
 ## Discussions
 Questions, bug reports, feature requests, and general discussions are welcome.  
 You can also contact us at hjyun@mushsw.com.
+
+## Our Sponsors
+Supported by the [Pyeongtaek Industrial Promotion Agency](https://pipabiz.or.kr/web/main/index.do) (South Korea), a government-affiliated public institution.
 
 ## License
 HimitsuShell has a dual license model with a Community Edition for noncommercial use:  [Polyform Noncommercial 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0).

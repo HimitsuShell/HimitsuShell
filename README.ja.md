@@ -22,11 +22,11 @@
 ## 使い方
 ```shell
 # 1. download and load docker image
-curl -LO https://github.com/HimitsuShell/Himitsu/releases/download/v1.2.0/himitsu_core_v1.2.0.tar.gz
-docker load -i himitsu_core_v1.2.0.tar.gz
+curl -LO https://github.com/HimitsuShell/Himitsu/releases/download/v2.1.0/himitsu_core_x86_64_linux_musl.tar.gz
+docker load -i himitsu_core_x86_64_linux_musl.tar.gz
 
 # 2. start container
-docker run --name himitsu_core -d -it himitsu_core:v1.2.0
+docker run --name himitsu_core -d -it himitsu_core
 
 # 3. upload your shell script (must be named launcher.sh)
 docker cp launcher.sh himitsu_core:/var/work/
@@ -40,34 +40,32 @@ docker cp himitsu_core:/var/work/safeLauncher .
 ```shell
 # obfuscation options
 - bcf         # bogus control flow (warning: significantly increases build time and binary size.)
-  - bcf_prob  # probability (1–100, default: 70)
-  - bcf_loop  # number of iterations (default: 2)
+  - bcf_prob  # probability (1–100, default: 30)
+  - bcf_loop  # number of iterations (default: 1)
 - sub         # instruction substitution (add/and/sub/or/xor)
   - sub_loop  # number of iterations (default: 1)
 - sobf        # string encryption
 - split       # basic block splitting
-  - split_num # number of splits (default: 3)
-- ibr         # indirect branches
-- icall       # indirect calls
-- igv         # indirect global variable
+  - split_num # number of splits (default: 2)
 
-# default options
-sobf, icall, ibr, igv, sub
-
-# how to customize
-modify /var/work/compile.sh inside the `himitsu_core` container.
+# default: sub, sobf (edit /var/work/compile.sh in himitsu_core container)
 ```
+
+#### 有効期限を設定
+```shell
+# default: 2099-01-01 (edit /var/work/compile.sh in himitsu_core container)
+```
+
+#### 対応プラットフォーム
+- **Linux x86_64（static musl）**
+- **Linux aarch64 (static musl)**
+- Linux ARMv7（対応予定）
+- Linux RISC-V 64（対応予定）
 
 #### システム要件
 - **CPU:** x86_64（Intel/AMD）、2.5GHz以上 *(6コア/12スレッド推奨)*
 - **メモリ:** 16GB RAM
 - **ストレージ:** 10GBの空き容量（SSD/NVMe）
-
-#### 対応プラットフォーム
-- **Linux x86_64（static musl）**
-- Linux ARM64（近日対応予定）
-- Linux ARMv7（対応予定）
-- Linux RISC-V 64（対応予定）
 
 ## 特徴
 - **OSレベルのロギング・フッキング対策**  
@@ -80,10 +78,10 @@ modify /var/work/compile.sh inside the `himitsu_core` container.
   実行中に継続的にデバッガを検知し、動的解析（`gdb`、`ptrace`、`strace`など）をより困難にします。
 
 - **高度な難読化技術**  
-  命令置換、間接呼び出し、間接分岐、基本ブロック分割、ボーガスコントロールフローなどの機能を備えています。
+  命令置換、制御フローの平坦化、基本ブロックの分割、関数アノテーション、偽の制御フロー（ダミー制御フロー）などの機能を搭載しています。
 
-- **ライセンス認証（予定）**  
-  有効なライセンスキーを持つユーザーのみにシェルスクリプトの実行を制限します。
+- **有効期限の検証**  
+  有効期限が切れた後、シェルスクリプトの実行を自動的にブロックします。
 
 ## 研究・セキュリティ分析
 #### なぜshcやsscではないのか？
@@ -124,6 +122,9 @@ modify /var/work/compile.sh inside the `himitsu_core` container.
 ## ディスカッション
 質問、バグ報告、機能リクエスト、その他一般的な議論を歓迎します。  
 hjyun@mushsw.com までご連絡いただくことも可能です。
+
+## スポンサー
+韓国の政府系公共機関である[平沢（ピョンテク）産業振興院](https://pipabiz.or.kr/web/main/index.do)の支援を受けています。
 
 ## License
 See [README.md](README.md#license) and [LICENSE](LICENSE) for details.

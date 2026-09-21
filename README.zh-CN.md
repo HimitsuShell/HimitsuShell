@@ -22,11 +22,11 @@
 ## 使用方法
 ```shell
 # 1. download and load docker image
-curl -LO https://github.com/HimitsuShell/Himitsu/releases/download/v1.2.0/himitsu_core_v1.2.0.tar.gz
-docker load -i himitsu_core_v1.2.0.tar.gz
+curl -LO https://github.com/HimitsuShell/Himitsu/releases/download/v2.1.0/himitsu_core_x86_64_linux_musl.tar.gz
+docker load -i himitsu_core_x86_64_linux_musl.tar.gz
 
 # 2. start container
-docker run --name himitsu_core -d -it himitsu_core:v1.2.0
+docker run --name himitsu_core -d -it himitsu_core
 
 # 3. upload your shell script (must be named launcher.sh)
 docker cp launcher.sh himitsu_core:/var/work/
@@ -40,34 +40,32 @@ docker cp himitsu_core:/var/work/safeLauncher .
 ```shell
 # obfuscation options
 - bcf         # bogus control flow (warning: significantly increases build time and binary size.)
-  - bcf_prob  # probability (1–100, default: 70)
-  - bcf_loop  # number of iterations (default: 2)
+  - bcf_prob  # probability (1–100, default: 30)
+  - bcf_loop  # number of iterations (default: 1)
 - sub         # instruction substitution (add/and/sub/or/xor)
   - sub_loop  # number of iterations (default: 1)
 - sobf        # string encryption
 - split       # basic block splitting
-  - split_num # number of splits (default: 3)
-- ibr         # indirect branches
-- icall       # indirect calls
-- igv         # indirect global variable
+  - split_num # number of splits (default: 2)
 
-# default options
-sobf, icall, ibr, igv, sub
-
-# how to customize
-modify /var/work/compile.sh inside the `himitsu_core` container.
+# default: sub, sobf (edit /var/work/compile.sh in himitsu_core container)
 ```
+
+#### 有效期限设置
+```shell
+# default: 2099-01-01 (edit /var/work/compile.sh in himitsu_core container)
+```
+
+#### 支持的平台
+- **Linux x86_64（static musl）**
+- **Linux aarch64 (static musl)**
+- Linux ARMv7（计划中）
+- Linux RISC-V 64（计划中）
 
 #### 系统要求
 - **CPU：** x86_64（Intel/AMD），2.5 GHz 或更高 *(推荐 6 核心 / 12 线程)*
 - **内存：** 16 GB RAM
 - **存储：** 10 GB 可用空间（SSD/NVMe）
-
-#### 支持的平台
-- **Linux x86_64（静态 musl）**
-- Linux ARM64（即将支持）
-- Linux ARMv7（计划中）
-- Linux RISC-V 64（计划中）
 
 ## 功能
 - **操作系统级日志与 Hook 防护**  
@@ -80,10 +78,10 @@ modify /var/work/compile.sh inside the `himitsu_core` container.
   在运行过程中持续检测调试器，从而增加动态分析的难度（例如 `gdb`、`ptrace`、`strace`）。
 
 - **高级混淆技术**  
-  包含指令替换、间接调用、间接跳转、基本块拆分以及虚假控制流等技术。
+  具备指令替换、控制流平坦化、基本块分割、函数注解以及虚假控制流等功能。
 
-- **许可证验证（计划中）**  
-  限制仅拥有有效许可证密钥的用户才能执行 shell 脚本。
+- **有效期验证**  
+  超过有效期后，自动阻止 Shell 脚本的执行。
 
 ## 研究与安全分析
 #### 为什么不用 shc、ssc 等工具？
@@ -124,6 +122,9 @@ modify /var/work/compile.sh inside the `himitsu_core` container.
 ## 讨论
 欢迎提出问题、报告 bug、提交功能请求以及进行任何形式的讨论。  
 您也可以通过 hjyun@mushsw.com 与我们联系。
+
+## 赞助机构
+获得韩国政府下属公共机构[平泽产业振兴院](https://pipabiz.or.kr/web/main/index.do)的支持。
 
 ## License
 See [README.md](README.md#license) and [LICENSE](LICENSE) for details.
