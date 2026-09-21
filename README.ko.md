@@ -20,11 +20,11 @@
 ## 사용법
 ```shell
 # 1. download and load docker image
-curl -LO https://github.com/HimitsuShell/Himitsu/releases/download/v1.2.0/himitsu_core_v1.2.0.tar.gz
-docker load -i himitsu_core_v1.2.0.tar.gz
+curl -LO https://github.com/HimitsuShell/Himitsu/releases/download/v2.1.0/himitsu_core_x86_64_linux_musl.tar.gz
+docker load -i himitsu_core_x86_64_linux_musl.tar.gz
 
 # 2. start container
-docker run --name himitsu_core -d -it himitsu_core:v1.2.0
+docker run --name himitsu_core -d -it himitsu_core
 
 # 3. upload your shell script (must be named launcher.sh)
 docker cp launcher.sh himitsu_core:/var/work/
@@ -38,34 +38,32 @@ docker cp himitsu_core:/var/work/safeLauncher .
 ```shell
 # obfuscation options
 - bcf         # bogus control flow (warning: significantly increases build time and binary size.)
-  - bcf_prob  # probability (1–100, default: 70)
-  - bcf_loop  # number of iterations (default: 2)
+  - bcf_prob  # probability (1–100, default: 30)
+  - bcf_loop  # number of iterations (default: 1)
 - sub         # instruction substitution (add/and/sub/or/xor)
   - sub_loop  # number of iterations (default: 1)
 - sobf        # string encryption
 - split       # basic block splitting
-  - split_num # number of splits (default: 3)
-- ibr         # indirect branches
-- icall       # indirect calls
-- igv         # indirect global variable
+  - split_num # number of splits (default: 2)
 
-# default options
-sobf, icall, ibr, igv, sub
-
-# how to customize
-modify /var/work/compile.sh inside the `himitsu_core` container.
+# default: sub, sobf (edit /var/work/compile.sh in himitsu_core container)
 ```
+
+#### 만료일 설정
+```shell
+# default: 2099-01-01 (edit /var/work/compile.sh in himitsu_core container)
+```
+
+#### 지원 플랫폼
+- **Linux x86_64 (static musl)**
+- **Linux aarch64 (static musl)**
+- Linux ARMv7 (예정)
+- Linux RISC-V 64 (예정)
 
 #### 시스템 요구사항
 - **CPU:** x86_64 (Intel/AMD), 2.5 GHz 이상 *(6코어 / 12스레드 권장)*
 - **메모리:** 16 GB RAM
 - **저장공간:** 10 GB 여유 공간 (SSD/NVMe)
-
-#### 지원 플랫폼
-- **Linux x86_64 (static musl)**
-- Linux ARM64 (곧 지원 예정)
-- Linux ARMv7 (예정)
-- Linux RISC-V 64 (예정)
 
 ## 기능
 - **OS 수준의 로깅 및 후킹 방어**  
@@ -78,10 +76,10 @@ modify /var/work/compile.sh inside the `himitsu_core` container.
   실행 중에 지속적으로 디버거를 감지하여 동적 분석을 더욱 어렵게 만듭니다 (예: `gdb`, `ptrace`, `strace`).
 
 - **고급 난독화 기법**  
-  명령어 치환, 간접 호출, 간접 분기, 기본 블록 분할, 가짜 제어 흐름 기법이 포함되어 있습니다.
+  명령어 치환, 제어 흐름 평탄화, 기본 블록 분할, 함수 어노테이션, 가짜 제어 흐름 기법이 포함되어 있습니다.
 
-- **라이선스 검증 (예정)**  
-  유효한 라이선스 키를 가진 사용자만 쉘 스크립트 실행이 가능하도록 제한합니다.
+- **만료일 검증**  
+  만료일이 지나면 셸 스크립트 실행을 자동으로 차단합니다.
 
 ## 연구 및 보안 분석
 #### shc, ssc 등은 왜 사용하면 안 되나요?
@@ -122,6 +120,9 @@ modify /var/work/compile.sh inside the `himitsu_core` container.
 ## 토론
 질문, 버그 신고, 기능 요청, 의견 교환 등을 환영합니다.  
 이곳으로 문의해 주셔도 됩니다. hjyun@mushsw.com.
+
+## 후원 기관 안내
+본 프로젝트는 대한민국 정부 산하 공공기관인 [평택산업진흥원](https://pipabiz.or.kr/web/main/index.do)의 지원을 받았습니다.
 
 ## License
 See [README.md](README.md#license) and [LICENSE](LICENSE) for details.
