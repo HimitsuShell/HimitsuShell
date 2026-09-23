@@ -21,7 +21,7 @@
 
 ## 使い方
 ```shell
-# 1. download and load docker image
+# 1. download docker image (x86_64_linux_musl)
 curl -LO https://github.com/HimitsuShell/Himitsu/releases/download/v2.1.0/himitsu_core_x86_64_linux_musl.tar.gz
 docker load -i himitsu_core_x86_64_linux_musl.tar.gz
 
@@ -38,8 +38,8 @@ docker cp himitsu_core:/var/work/safeLauncher .
 
 #### 難読化オプション（LLVMベース）
 ```shell
-# obfuscation options
-- bcf         # bogus control flow (warning: significantly increases build time and binary size.)
+- fla         # control flow flattening
+- bcf         # bogus control flow (slow build, larger binary)
   - bcf_prob  # probability (1–100, default: 30)
   - bcf_loop  # number of iterations (default: 1)
 - sub         # instruction substitution (add/and/sub/or/xor)
@@ -58,7 +58,7 @@ docker cp himitsu_core:/var/work/safeLauncher .
 
 #### 対応プラットフォーム
 - **Linux x86_64（static musl）**
-- **Linux aarch64 (static musl)**
+- **Linux aarch64（static musl）**
 - Linux ARMv7（対応予定）
 - Linux RISC-V 64（対応予定）
 
