@@ -130,3 +130,7 @@ HimitsuShell has a dual license model with a Community Edition for noncommercial
 With this license HimitsuShell is free to use for personal/noncommercial use, but will require a Commercial Edition to be used in a commercial business.
 
 Commercial Edition can be purchased at [himitsushell.com](https://himitsushell.com). For more details on our licensing, see our [Terms of Service](https://himitsushell.com/pdf/terms_of_service.pdf).
+
+### Patents
+
+Korean Patent No. 10-3040307-0000: *METHOD AND APPARATUS FOR INTEGRATEDLY PROTECTING TARGET SOFTWARE AND BUILD AND EXECUTION ENVIRONMENT ON CONTAINER*
