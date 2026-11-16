@@ -14,6 +14,8 @@ Shell scripts invisible even to kernel tracing.
   
 Converts shell scripts into single static binaries with an embedded interpreter, llvm-based obfuscation, and anti-debug protections (shc alternative).
 
+[HackTricks: Static embedded-shell execution](https://book.hacktricks.wiki/en/generic-methodologies-and-resources/basic-forensic-methodology/anti-forensic-techniques.html#static-embedded-shell-execution)
+
 <img src="assets/features_obfuscation.png" width="200"><br>
 <sub><b>Block Flow Graph (Ghidra)</b></sub>
 
