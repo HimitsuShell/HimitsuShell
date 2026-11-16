@@ -1,0 +1,3 @@
+[submodule "inside_container/compiler"]
+	path = inside_container/compiler
+	url = https://github.com/HimitsuShell/HimitsuObfuscator.git
